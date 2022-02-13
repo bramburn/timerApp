@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QTime>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -14,13 +15,31 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-public slots:
-    void startTimerBtnClicked();
+
+
+
 private slots:
-    void on_actionClose_triggered();
+    void onactionCloseTriggered();
+    void startTimerBtnClicked();
+    void updateTimer();
+
+
+    void on_stopTimerBtn_clicked();
+
+    void on_timerSelect_currentIndexChanged(int index);
+signals:
+    void stopWatchStart();
+    void stopWatchPause();
+    void stopWatchStop();
+    void timerFinished();
 
 private:
     Ui::MainWindow *ui;
+    QTime *stopWatch;
+    QTimer *timer;
+    bool started{false};
+    bool paused{false};
+    int minutes{5};
 
 };
 #endif // MAINWINDOW_H
